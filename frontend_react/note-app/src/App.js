@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
 
-var BACKEND_URL = "http://3.20.235.110:30001"
+var BACKEND_URL = "http://3.20.235.110:3001"
 
 function App() {
   const [notes, setNotes] = useState([]);
