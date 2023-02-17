@@ -6,17 +6,18 @@ const app = express();
 
 const allowedOrigins = ['http://13.58.13.94:3000', 'http://127.0.0.1:3000', 'http://localhost:3000'];
 
-const corsOptions = {
-    origin: (allowedOrigins, callback) => {
-        if (allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    }
-};
+// const corsOptions = {
+//     origin: (allowedOrigins, callback) => {
+//         if (allowedOrigins.includes(origin)) {
+//             callback(null, true);
+//         } else {
+//             callback(new Error('Not allowed by CORS'));
+//         }
+//     }
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors({ origin: 'http://13.58.13.94:3000', credentials: true }));
 
 app.use(bodyParser.json());
 
