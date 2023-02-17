@@ -4,8 +4,7 @@ const cors = require('cors');
 
 const app = express();
 
-const corsOptions = { origin: true, credentials: true };
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 /* app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,21 +15,7 @@ app.use(function (req, res, next) {
 }); */
 
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*")
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested, Content-Type, Accept Authorization"
-    )
-    if (req.method === "OPTIONS") {
-        res.header(
-            "Access-Control-Allow-Methods",
-            "POST, PUT, PATCH, GET, DELETE"
-        )
-        return res.status(200).json({})
-    }
-    next()
-})
+
 
 // const allowedOrigins = ['http://13.58.13.94:3000', 'http://127.0.0.1:3000', 'http://localhost:3000'];
 
@@ -53,7 +38,9 @@ app.use(bodyParser.json());
 // Enable CORS
 
 // app.use(cors());
-// app.use(cors({ origin: 'http://13.58.13.94:3000', credentials: true }));
+app.use(cors({
+    origin: "http://localhost:3000"
+}));
 
 
 
