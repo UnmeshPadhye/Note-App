@@ -14,6 +14,7 @@ const port = 3001;
 const notes = [];
 
 app.get('/', (req, res) => {
+    console.log("GET : / called!");
     res.send('Hello, World!');
 });
 
@@ -23,9 +24,11 @@ app.listen(port, () => {
 
 
 app.post('/notes', (req, res) => {
+
+    console.log("POST : /notes called!");
     const newNote = {
         title: req.body.title,
-        body: req.body.body,
+        content: req.body.content,
     };
     notes.push(newNote);
     res.status(201).json(newNote);
@@ -33,6 +36,7 @@ app.post('/notes', (req, res) => {
 
 
 app.get('/notes', (req, res) => {
+    console.log("GET : /notes called!");
     res.send(notes);
 });
 

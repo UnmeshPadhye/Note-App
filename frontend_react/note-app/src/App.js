@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import axios from 'axios';
 
 function App() {
   const [notes, setNotes] = useState([]);
-  const [newNote, setNewNote] = useState("");
+  const [newNote, setNewNote] = useState({ title: '', content: '' });
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/notes")
+      .get('http://localhost:3001/notes')
       .then((response) => {
         setNotes(response.data);
       })
@@ -16,36 +17,64 @@ function App() {
       });
   }, []);
 
-  const handleNoteChange = (event) => {
-    setNewNote(event.target.value);
-  };
-
-  const addNote = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const noteObject = {
-      title: newNote,
-      id: notes.length + 1,
-    };
     axios
-      .post("http://localhost:3001/notes", noteObject)
+      .post('http://localhost:3001/notes', newNote)
       .then((response) => {
-        setNotes(notes.concat(response.data));
-        setNewNote("");
+        setNotes([...notes, response.data]);
+        setNewNote({
+          title: '',
+          content: '',
+        });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
+  const handleInputChange = (event) => {
+    setNewNote({
+      ...newNote,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   return (
-    <div>
-      <h1>Notes</h1>
-      <form onSubmit={addNote}>
-        <input value={newNote} onChange={handleNoteChange} />
+    <div className="App">
+      <h1>Notes App</h1>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="title">Title:</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={newNote.title}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="content">Content:</label>
+          <textarea
+            id="content"
+            name="content"
+            value={newNote.content}
+            onChange={handleInputChange}
+            required
+          ></textarea>
+        </div>
         <button type="submit">Add Note</button>
       </form>
-      <ul>
+      <div className="notes">
         {notes.map((note) => (
-          <li key={note.id}>{note.title}</li>
+          <div className="note" key={note.id}>
+            <h2>{note.title}</h2>
+            <p>{note.content}</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
