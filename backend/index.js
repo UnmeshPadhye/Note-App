@@ -6,31 +6,27 @@ const app = express();
 
 // app.use(cors(corsOptions));
 
-const corsOptions = { origin: true, credentials: true };
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-/* app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-}); */
+// *******
+
+app.use(cors({ origin: 'http://3.20.235.110:3000', credentials: true }));
 
 
-
-
-// const allowedOrigins = ['http://13.58.13.94:3000', 'http://127.0.0.1:3000', 'http://localhost:3000'];
+// *******
 
 
 
 app.use(bodyParser.json());
+
+app.use(function (req, res, next) {
+    // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    // *** AWS Config code for CORS
+    res.setHeader('Access-Control-Allow-Origin', 'http://3.20.235.110:3000');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
+    res.setHeader('Cache-Control', 'no-cache');
+    next();
+});
 
 // Enable CORS
 
