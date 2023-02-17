@@ -7,13 +7,30 @@ const app = express();
 const corsOptions = { origin: true, credentials: true };
 app.use(cors(corsOptions));
 
-app.use(express.json());
+/* app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
-});
+}); */
+
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested, Content-Type, Accept Authorization"
+    )
+    if (req.method === "OPTIONS") {
+        res.header(
+            "Access-Control-Allow-Methods",
+            "POST, PUT, PATCH, GET, DELETE"
+        )
+        return res.status(200).json({})
+    }
+    next()
+})
 
 // const allowedOrigins = ['http://13.58.13.94:3000', 'http://127.0.0.1:3000', 'http://localhost:3000'];
 
@@ -52,9 +69,7 @@ app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
 
-app.listen(port, () => {
-    console.log(`App listening at http://localhost:${port}`);
-});
+
 
 
 app.post('/notes', (req, res) => {
@@ -89,4 +104,8 @@ app.put('/notes/:id', (req, res) => {
 app.delete('/notes/:id', (req, res) => {
     const id = req.params.id;
     // TODO: Implement the code to delete a note from the database using
+});
+
+app.listen(port, () => {
+    console.log(`App listening at http://localhost:${port}`);
 });
