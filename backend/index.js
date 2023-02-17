@@ -4,19 +4,31 @@ const cors = require('cors');
 
 const app = express();
 
+const allowedOrigins = ['http://13.58.13.94', 'http://localhost:3000'];
+
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+};
+
+app.use(cors(corsOptions));
+
 app.use(bodyParser.json());
 
 // Enable CORS
-const corsOptions = {
-    origin: 'http://13.58.13.94:3000',
-    credentials: true,            //access-control-allow-credentials:true
-    optionSuccessStatus: 200,
-}
-
 
 // app.use(cors());
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
-app.use(cors({ origin: 'http://13.58.13.94:3000', credentials: true }));
+// app.use(cors({ origin: 'http://13.58.13.94:3000', credentials: true }));
+
+
+
+// CORS SECTION ABOVE 
+
 
 const port = 3001;
 
