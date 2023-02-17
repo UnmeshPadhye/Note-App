@@ -29,7 +29,6 @@ app.use(function (req, res, next) {
 
 // app.use(cors(corsOptions));
 // app.use(cors({ origin: 'http://13.58.13.94:3000', credentials: true }));
-app.use(cors())
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
