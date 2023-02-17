@@ -17,7 +17,8 @@ const allowedOrigins = ['http://13.58.13.94:3000', 'http://127.0.0.1:3000', 'htt
 // };
 
 // app.use(cors(corsOptions));
-app.use(cors({ origin: 'http://13.58.13.94:3000', credentials: true }));
+// app.use(cors({ origin: 'http://13.58.13.94:3000', credentials: true }));
+app.use(cors())
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
