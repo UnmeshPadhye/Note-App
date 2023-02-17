@@ -8,7 +8,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/notes')
+      .get('http://127.0.0.1:3001/notes')
       .then((response) => {
         setNotes(response.data);
       })
@@ -20,7 +20,7 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post('http://localhost:3001/notes', newNote)
+      .post('http://127.0.0.1:3001/notes', newNote)
       .then((response) => {
         setNotes([...notes, response.data]);
         setNewNote({
