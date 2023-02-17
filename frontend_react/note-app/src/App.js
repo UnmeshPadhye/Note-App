@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
 
+var BACKEND_URL = "http://3.20.235.110:30001"
+
 function App() {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState({ title: '', content: '' });
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/notes')
+      .get(`${BACKEND_URL}/notes`)
       .then((response) => {
         setNotes(response.data);
       })
@@ -20,7 +22,7 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post('http://localhost:3001/notes', newNote)
+      .post(`${BACKEND_URL}/notes`, newNote)
       .then((response) => {
         setNotes([...notes, response.data]);
         setNewNote({
