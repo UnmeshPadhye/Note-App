@@ -4,7 +4,18 @@ const cors = require('cors');
 
 const app = express();
 
-const allowedOrigins = ['http://13.58.13.94:3000', 'http://127.0.0.1:3000', 'http://localhost:3000'];
+const corsOptions = { origin: true, credentials: true };
+app.use(cors(corsOptions));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+// const allowedOrigins = ['http://13.58.13.94:3000', 'http://127.0.0.1:3000', 'http://localhost:3000'];
 
 // const corsOptions = {
 //     origin: (allowedOrigins, callback) => {
