@@ -3,7 +3,7 @@ import './App.css';
 import axios from 'axios';
 
 //URL for AWS Outlook Account
-const { FRONTEND_URL, BACKEND_URL } = process.env;
+import { FRONTEND_URL, BACKEND_URL } from '../env/URL';
 
 
 function App() {
