@@ -3,7 +3,8 @@ import './App.css';
 import axios from 'axios';
 
 //URL for AWS Outlook Account
-var BACKEND_URL = "http://18.189.1.162:3001"
+const { FRONTEND_URL, BACKEND_URL } = process.env;
+
 
 function App() {
   const [notes, setNotes] = useState([]);
